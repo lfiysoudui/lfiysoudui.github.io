@@ -24,18 +24,12 @@ npm run preview
 
 ## Customize
 
-- Edit content in [index.html](index.html) sections: Home, About, Projects, Contact.
+- Edit content in [index.html](index.html) sections: Home, About, Projects, Mini Projects, Contact.
 - Tweak styles in [src/styles.css](src/styles.css).
 - TypeScript interactions live in [src/main.ts](src/main.ts).
 
 ## Deploy (GitHub Pages)
 
-For a user site repo like `username.github.io`, you can build and push the `dist` folder to the `main` branch:
+Pushing to `main` runs [.github/workflows/deploy.yml](.github/workflows/deploy.yml), which builds the site and publishes `dist/` to GitHub Pages.
 
-```bash
-npm run build
-```
-
-Commit and push the contents of the repository. GitHub Pages will serve from the root of `main`.
-
-If you prefer a `gh-pages` branch, you can publish `dist` there. Many workflows exist; feel free to ask and we'll set up an action.
+One-time setup: in the repo's **Settings → Pages**, set **Source** to **GitHub Actions**.

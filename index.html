@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>lfiysoudui • Personal Site</title>
     <meta name="description" content="Personal website for lfiysoudui" />
+    <script>
+      // Apply the saved/system theme before first paint to avoid a light-mode flash
+      (function () {
+        try {
+          var saved = localStorage.getItem('site-theme');
+          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👋</text></svg>">
   </head>
   <body>
@@ -14,6 +24,7 @@
         <div class="links">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
+          <a href="#mini_projects">Mini Projects</a>
           <a href="#contact">Contact</a>
           <button id="theme-toggle" aria-label="Toggle theme">🌗</button>
         </div>
@@ -39,7 +50,7 @@
         <h2>About</h2>
         <p>
           I'm currently an undergraduate at CSIE department, National Taiwan University.<br>
-          Love to use 3d printing to sove some problem I met.
+          I love using 3D printing to solve problems I run into.
         </p>
       </section>
       <section id="projects" class="section" tabindex="-1">
@@ -50,7 +61,7 @@
             <div class="project-info">
               <div class="project-header">
                 <h3>Senior Gaming Assistance System (Under review)</h3>
-                <a class="toggle-text" href="#" onclick="toggleProject(this); return false;" style="display: none;">see more</a>
+                <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
               </div>
               <div class="project-content">
                 <p>This project introduces a real-time input translation system that allows older adults to play existing button-based games using intuitive body gestures, without modifying the original game content. To design the interaction set, we conducted a gesture elicitation study to collect user-defined movements grounded in older adults' everyday experiences. Based on these findings, we developed a proof-of-concept system that translates body gestures into controller inputs in real time and evaluated it through gameplay sessions with two commercial games on the Nintendo Switch platform.</p>
@@ -58,7 +69,7 @@
             </div>
           </li>
         </ul>
-      </section>      
+      </section>
       
       <section id="mini_projects" class="section" tabindex="-1">
         <h2>Mini Projects</h2>
@@ -68,7 +79,7 @@
             <div class="project-info">
               <div class="project-header">
                 <h3>mini knob</h3>
-                <a class="toggle-text" href="#" onclick="toggleProject(this); return false;" style="display: none;">see more</a>
+                <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
               </div>
               <div class="project-content">
                 <p>I found that the volume knob on my radio was oversized and easily turned accidentally while I was moving around, often causing the radio to switch on or off unexpectedly. To solve this problem, I designed and 3D-printed a smaller knob that reduces the overall width without sacrificing ease of operation, making accidental activation much less likely.</p>
@@ -77,15 +88,15 @@
           </li>
           <li class="card">
             <!-- <div class="project-image-placeholder"></div> -->
-            <img class="project-image" src="img/smashbot.png" alt="Smash ">
+            <img class="project-image" src="img/smashbot.png" alt="Smash bot">
             <div class="project-info">
               <div class="project-header">
                 <h3>Smash bot</h3>
-                <a class="toggle-text" href="#" onclick="toggleProject(this); return false;" style="display: none;">see more</a>
+                <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
               </div>
               <div class="project-content">
                 <p>This is a final project of "Robot Perceptron and Learning".<br> We built a competitive gameplay bot for Super Smash Bros. Melee using a hybrid approach that combines imitation learning and reinforcement learning. The model first learns from professional gameplay data and then improves through self-play against in-game AI opponents. To accelerate training, we designed a pipelined framework that significantly increases learning efficiency. The resulting agent is capable of using FALCO to defeat Level 7 hard coded bots (CP7).<br>
-                We're still working on making our repo more clean, the link will be upload later</p>
+                We're still cleaning up our repo; the link will be uploaded later.</p>
                 <!-- <a class="card-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">Source</a> -->
               </div>
             </div>
@@ -96,10 +107,10 @@
             <div class="project-info">
               <div class="project-header">
                 <h3>Vivid Pikachu</h3>
-                <a class="toggle-text" href="#" onclick="toggleProject(this); return false;" style="display: none;">see more</a>
+                <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
               </div>
               <div class="project-content">
-                <p>This is a final project of "Making and Inventing Interaction Devices" .<br>In this project, we used 3D printing and digital fabrication to create most of the physical components of an interactive Pikachu device, including its input and output devices (excluding the motor and core electronics). The system has digitally fabricated sensors—such as a flex sensor in the tail and a multi-touch petting surface—as well as servo-driven ear movements and sound output. Through iterative design, we figured out a way to fix the challenges in printing conductive sensor and mechanical connections, while identifying the practical limitations of conductive printing materials for interactive device development.</p>
+                <p>This is a final project of "Making and Inventing Interaction Devices".<br>In this project, we used 3D printing and digital fabrication to create most of the physical components of an interactive Pikachu device, including its input and output devices (excluding the motor and core electronics). The system has digitally fabricated sensors—such as a flex sensor in the tail and a multi-touch petting surface—as well as servo-driven ear movements and sound output. Through iterative design, we figured out a way to fix the challenges in printing conductive sensor and mechanical connections, while identifying the practical limitations of conductive printing materials for interactive device development.</p>
                 <!-- <a class="card-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">Source</a> -->
               </div>
             </div>
@@ -123,47 +134,6 @@
       <small>© <span id="year"></span> • Built with TypeScript</small>
     </footer>
 
-    <script>
-      function toggleProject(toggleLink) {
-        const content = toggleLink.closest('.project-header').nextElementSibling;
-        
-        if (content.classList.contains('truncated')) {
-          content.classList.remove('truncated');
-          toggleLink.textContent = 'see less';
-        } else {
-          content.classList.add('truncated');
-          toggleLink.textContent = 'see more';
-          // Re-apply no-source class if needed
-          const hasSource = content.querySelector('.card-link');
-          if (!hasSource) {
-            content.classList.add('no-source');
-          }
-        }
-      }
-
-      // Initialize truncation on page load
-      document.addEventListener('DOMContentLoaded', function() {
-        const projects = document.querySelectorAll('.project-content');
-        
-        projects.forEach(content => {
-          const paragraph = content.querySelector('p');
-          const toggleLink = content.parentElement.querySelector('.toggle-text');
-          const hasSource = content.querySelector('.card-link');
-          
-          if (paragraph && paragraph.textContent.length > 200) {
-            content.classList.add('truncated');
-            
-            // If no source link, allow more lines to show
-            if (!hasSource) {
-              content.classList.add('no-source');
-            }
-            
-            toggleLink.style.display = 'inline';
-            toggleLink.textContent = 'see more';
-          }
-        });
-      });
-    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
