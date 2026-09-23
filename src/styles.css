@@ -1,18 +1,25 @@
 /* Theme variables */
+/* Warm monochrome with a terracotta hint: ink buttons, terracotta for name, links and details */
 :root {
-  --bg: #ffffff;
-  --text: #0f172a;
-  --muted: #475569;
-  --accent: #2563eb;
-  --border: #e2e8f0;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --text: #1c1917;
+  --muted: #6b6560;
+  --accent: #b4532a;
+  --btn: #1c1917;
+  --on-btn: #ffffff;
+  --border: #e7e5e4;
 }
 
 :root[data-theme='dark'] {
-  --bg: #0b1220;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
-  --accent: #60a5fa;
-  --border: #1f2937;
+  --bg: #1c1917;
+  --surface: #242120;
+  --text: #e7e5e4;
+  --muted: #a8a29e;
+  --accent: #e0875e;
+  --btn: #e7e5e4;
+  --on-btn: #1c1917;
+  --border: #3a3633;
 }
 
 * { box-sizing: border-box; }
@@ -38,7 +45,7 @@ body {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
   padding: 12px 16px;
 }
 .logo {
@@ -46,11 +53,56 @@ body {
   text-decoration: none;
   color: var(--text);
 }
-.links { display: flex; gap: 12px; align-items: center; }
+.links { display: flex; gap: 12px; align-items: center; margin-left: auto; }
 .links a { color: var(--muted); text-decoration: none; }
 .links a:hover { color: var(--text); }
-#theme-toggle { border: 1px solid var(--border); background: transparent; color: var(--muted); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
-#theme-toggle:hover { color: var(--text); }
+/* Theme toggle: square icon button (moon in light mode, sun in dark mode) */
+#theme-toggle {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+#theme-toggle svg { width: 0.9rem; height: 0.9rem; fill: currentColor; }
+#theme-toggle .icon-sun { display: none; }
+:root[data-theme='dark'] #theme-toggle .icon-sun { display: block; }
+:root[data-theme='dark'] #theme-toggle .icon-moon { display: none; }
+#theme-toggle:hover {
+  border-color: color-mix(in oklab, var(--text) 20%, var(--bg));
+  background: color-mix(in oklab, var(--text) 6%, var(--bg));
+  color: var(--text);
+}
+#theme-toggle:focus { outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent); }
+:root[data-theme='dark'] #theme-toggle { background: color-mix(in oklab, var(--text) 6%, var(--bg)); }
+:root[data-theme='dark'] #theme-toggle:hover { background: color-mix(in oklab, var(--text) 12%, var(--bg)); }
+
+/* Small screens: name + theme toggle on top, links in a swipeable row below */
+@media (max-width: 640px) {
+  .nav { flex-wrap: wrap; row-gap: 8px; }
+  .logo { white-space: nowrap; }
+  #theme-toggle { margin-left: auto; width: 38px; height: 38px; }
+  .links {
+    order: 1;
+    flex-basis: 100%;
+    margin-left: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .links::-webkit-scrollbar { display: none; }
+  .links a { flex-shrink: 0; white-space: nowrap; }
+  /* Taller header: keep section titles clear of it when jumping via the menu */
+  .section { scroll-margin-top: 48px; }
+}
 
 /* Sections */
 .section { max-width: 960px; margin: 0 auto; padding: 40px 16px; }
@@ -69,17 +121,18 @@ body {
 }
 
 /* Buttons */
-.btn { display: inline-block; background: var(--accent); color: white; padding: 10px 14px; border-radius: 10px; text-decoration: none; margin-right: 8px; }
-.btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.btn { display: inline-block; background: var(--btn); color: var(--on-btn); padding: 10px 14px; border-radius: 10px; text-decoration: none; margin-right: 8px; }
+.btn.secondary { background: transparent; color: var(--btn); border: 1px solid var(--btn); }
 .btn:hover { filter: brightness(0.95); }
 
 /* Cards */
 .cards { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }
-.card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: color-mix(in oklab, var(--bg) 92%, transparent); display: flex; gap: 20px; align-items: flex-start; }
+.card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: var(--surface); display: flex; gap: 20px; align-items: flex-start; }
 
 /* Project Images */
-.project-image { width: 200px; height: 150px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
-.project-image-placeholder { width: 200px; height: 150px; flex-shrink: 0; }
+/* Square thumbnails; object-fit crops the photo to fill the square */
+.project-image { width: 150px; height: 150px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.project-image-placeholder { width: 150px; height: 150px; flex-shrink: 0; }
 
 /* Project Info */
 .project-info { flex: 1; min-width: 0; }
@@ -89,16 +142,25 @@ body {
 .toggle-text:hover { text-decoration: underline; }
 .project-content { }
 .project-content p { color: var(--muted); margin: 0 0 12px 0; line-height: 1.6; }
-.project-content.truncated p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.project-content.truncated.no-source p { -webkit-line-clamp: 5; }
+/* --clamp is set per card in main.ts so a collapsed card matches its thumbnail height */
+.project-content.truncated p { display: -webkit-box; -webkit-line-clamp: var(--clamp, 3); -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
 
 /* Responsive */
 @media (max-width: 768px) {
   .card { flex-direction: column; }
-  .project-image { width: 100%; height: 200px; }
+  .project-image { width: 100%; height: auto; aspect-ratio: 1 / 1; }
 }
+/* Research links (paper / PDF / video) */
+.paper-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.paper-link { font-size: 13px; padding: 4px 12px; border: 1px solid var(--accent); border-radius: 999px; color: var(--accent); text-decoration: none; white-space: nowrap; }
+.paper-link:hover { background: color-mix(in oklab, var(--accent) 12%, transparent); }
+
 .card-link { color: var(--accent); text-decoration: none; }
 .card-link:hover { text-decoration: underline; }
+
+/* Inline links in text sections (same look as contact links) */
+#about a { color: var(--accent); text-decoration: none; }
+#about a:hover { text-decoration: underline; }
 
 /* Contact */
 .contact-list { list-style: none; padding: 0; }

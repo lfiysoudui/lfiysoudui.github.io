@@ -24,9 +24,16 @@ npm run preview
 
 ## Customize
 
-- Edit content in [index.html](index.html) sections: Home, About, Projects, Mini Projects, Contact.
+- Edit content in [index.html](index.html) sections: Home, About, Research, Mini Projects, Experience, Skills, Contact.
 - Tweak styles in [src/styles.css](src/styles.css).
 - TypeScript interactions live in [src/main.ts](src/main.ts).
+
+## Research links
+
+Each research card in [index.html](index.html) has **Full paper**, **PDF** and **Video** buttons. Fill in a button's `href` to show it; buttons with an empty `href` are hidden.
+
+- External links (DOI, ACM DL, YouTube, …): paste the URL.
+- Your own files: put them in `public/research/` and link them as `research/<file>`, e.g. `href="research/elderplay.pdf"`.
 
 ## Deploy (GitHub Pages)
 

@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>lfiysoudui • Personal Site</title>
-    <meta name="description" content="Personal website for lfiysoudui" />
+    <title>Wei-Tang Hsu • Personal Site</title>
+    <meta name="description" content="Personal website of Wei-Tang Hsu, HCI researcher and Computer Science undergraduate at National Taiwan University" />
     <script>
       // Apply the saved/system theme before first paint to avoid a light-mode flash
       (function () {
@@ -15,19 +15,23 @@
         } catch (e) {}
       })();
     </script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👋</text></svg>">
   </head>
   <body>
     <header class="site-header">
       <nav class="nav">
-        <a class="logo" href="#home">lfiysoudui</a>
+        <a class="logo" href="#home">Wei-Tang Hsu</a>
         <div class="links">
           <a href="#about">About</a>
-          <a href="#projects">Projects</a>
+          <a href="#research">Research</a>
           <a href="#mini_projects">Mini Projects</a>
+          <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
-          <button id="theme-toggle" aria-label="Toggle theme">🌗</button>
         </div>
+        <!-- Moon/sun icons: Font Awesome Free 6.7.2 (CC BY 4.0) https://fontawesome.com/license/free -->
+        <button id="theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode">
+          <svg class="icon-moon" viewBox="0 0 384 512" aria-hidden="true"><path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 512 512" aria-hidden="true"><path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/></svg>
+        </button>
       </nav>
     </header>
 
@@ -36,10 +40,10 @@
         <div class="hero-content">
           <img class="profile-picture" src="img/portrait.jpeg" alt="Profile picture">
           <div class="hero-text">
-            <h1>Hi, I'm <span class="accent">lfiysoudui</span>.</h1>
-            <p>Still trying to make this website look better</p>
+            <h1>Hi, I'm <span class="accent">Wei-Tang Hsu</span>.</h1>
+            <p>HCI researcher building technology that extends human capability in the physical world.</p>
             <div class="cta">
-              <a class="btn" href="#projects">View Projects</a>
+              <a class="btn" href="#research">View Research</a>
               <a class="btn secondary" href="#contact">Get in Touch</a>
             </div>
           </div>
@@ -49,22 +53,56 @@
       <section id="about" class="section" tabindex="-1">
         <h2>About</h2>
         <p>
-          I'm currently an undergraduate at CSIE department, National Taiwan University.<br>
-          I love using 3D printing to solve problems I run into.
+          I am a Computer Science undergraduate at <strong>National Taiwan University</strong>, working with
+          Prof. <strong>Shan-Yuan Teng</strong> at <a href="https://lab.tengshanyuan.info/" target="_blank" rel="noopener noreferrer">DexLab</a>.
+          My research interest lies in <strong>Human-Computer Interaction</strong>, specifically in improving how humans interact
+          with the <strong>physical world</strong>. Rather than viewing computers as isolated tools, I am interested in how technology
+          can function as an <strong>extension of human capability</strong> through adaptive interfaces and thoughtful fabrication.
+          I co-authored ElderPlay (DIS '26), where I implemented a system that translates body gestures captured by cameras into
+          Nintendo Switch controller inputs and ran the user study with older adults, and I built a wrist-worn depth camera that
+          lets people see through their own hands in augmented reality (UIST '26 demo).
+          I enjoy building the hardware myself with <strong>3D printing and digital fabrication</strong>.
+          In summer 2026, I joined the Computer Science Summer Research Fellowship program and was a research intern at the
+          <a href="https://lab.plopes.org/" target="_blank" rel="noopener noreferrer">Human Computer Integration Lab</a>
+          at the University of Chicago with Prof. <strong>Pedro Lopes</strong>.
         </p>
       </section>
-      <section id="projects" class="section" tabindex="-1">
-        <h2>Projects</h2>
+      <section id="research" class="section" tabindex="-1">
+        <h2>Research</h2>
         <ul class="cards">
           <li class="card">
-            <img class="project-image" src="img/elderplay.png" alt="Senior Gaming Assistance System">
+            <img class="project-image" src="img/elderplay.png" alt="Older adult playing a video game with body gestures">
             <div class="project-info">
               <div class="project-header">
-                <h3>Senior Gaming Assistance System (Under review)</h3>
+                <h3>ElderPlay: Supporting Age-Inclusive Gameplay for Older Adults via Real-Time Gesture-to-Controller Translation (DIS '26)</h3>
                 <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
               </div>
               <div class="project-content">
-                <p>This project introduces a real-time input translation system that allows older adults to play existing button-based games using intuitive body gestures, without modifying the original game content. To design the interaction set, we conducted a gesture elicitation study to collect user-defined movements grounded in older adults' everyday experiences. Based on these findings, we developed a proof-of-concept system that translates body gestures into controller inputs in real time and evaluated it through gameplay sessions with two commercial games on the Nintendo Switch platform.</p>
+                <p>We designed and built a real-time system that translates body movements and intuitive gestures into standard game inputs, letting older adults play existing button-based games without modifying the games themselves. The interaction set came from a gesture elicitation study that collected user-defined movements grounded in older adults' everyday experiences, and we evaluated the system through gameplay sessions with two commercial Nintendo Switch games. My contributions: architecting and implementing the gesture-to-input translation pipeline, and designing and conducting the summative user study.</p>
+              </div>
+              <!-- Fill in href to show a button; empty ones stay hidden. Local files go in public/research/ (e.g. href="research/elderplay.pdf"). -->
+              <div class="paper-links">
+                <a class="paper-link" href="" target="_blank" rel="noopener noreferrer">Full paper</a>
+                <a class="paper-link" href="" target="_blank" rel="noopener noreferrer">PDF</a>
+                <a class="paper-link" href="" target="_blank" rel="noopener noreferrer">Video</a>
+              </div>
+            </div>
+          </li>
+          <li class="card">
+            <img class="project-image" src="img/seethrough.jpg" alt="Wrist-mounted depth camera on an actuated mount, worn on the forearm with a VR controller">
+            <div class="project-info">
+              <div class="project-header">
+                <h3>See Through With The Hands: Seamless Occluded Interactions in Augmented Reality (UIST '26 Demo)</h3>
+                <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
+              </div>
+              <div class="project-content">
+                <p>A wrist-mounted device that constructs real-time see-through views for occluded manual interaction, without external tracking. The depth image from the camera is transposed to align with the headset view, enabling intuitive body positioning while manipulating objects, and a custom actuated mount adapts the depth camera's angle to different hand poses. Despite its simplicity, the prototype enables fine manipulation tasks such as aiming at and screwing an occluded nut.</p>
+              </div>
+              <!-- Fill in href to show a button; empty ones stay hidden. Local files go in public/research/ (e.g. href="research/see-through.pdf"). -->
+              <div class="paper-links">
+                <a class="paper-link" href="" target="_blank" rel="noopener noreferrer">Full paper</a>
+                <a class="paper-link" href="" target="_blank" rel="noopener noreferrer">PDF</a>
+                <a class="paper-link" href="" target="_blank" rel="noopener noreferrer">Video</a>
               </div>
             </div>
           </li>
@@ -75,14 +113,14 @@
         <h2>Mini Projects</h2>
         <ul class="cards">
           <li class="card">
-            <img class="project-image" src="img/miniknob.JPEG" alt="Mini Knob">
+            <div class="project-image-placeholder"></div>
             <div class="project-info">
               <div class="project-header">
-                <h3>mini knob</h3>
+                <h3>GeoGuessr bot plugin</h3>
                 <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
               </div>
               <div class="project-content">
-                <p>I found that the volume knob on my radio was oversized and easily turned accidentally while I was moving around, often causing the radio to switch on or off unexpectedly. To solve this problem, I designed and 3D-printed a smaller knob that reduces the overall width without sacrificing ease of operation, making accidental activation much less likely.</p>
+                <p>A multi-agent system that adds AI-controlled bot players to a live GeoGuessr-style web game. I designed the overall architecture, built a Street View screenshot capture pipeline, and integrated an LLM for in-game decision-making and chat. The bots connect to the game API, so humans and AI players can join the same real-time multiplayer session. Built with Python, JavaScript, an LLM API and the Google Street View API.</p>
               </div>
             </div>
           </li>
@@ -101,20 +139,25 @@
               </div>
             </div>
           </li>
-          <li class="card">
-            <div class="project-image-placeholder"></div>
-            <!-- <img class="project-image" src="img/" alt=""> -->
-            <div class="project-info">
-              <div class="project-header">
-                <h3>Vivid Pikachu</h3>
-                <a class="toggle-text" href="#" role="button" style="display: none;">see more</a>
-              </div>
-              <div class="project-content">
-                <p>This is a final project of "Making and Inventing Interaction Devices".<br>In this project, we used 3D printing and digital fabrication to create most of the physical components of an interactive Pikachu device, including its input and output devices (excluding the motor and core electronics). The system has digitally fabricated sensors—such as a flex sensor in the tail and a multi-touch petting surface—as well as servo-driven ear movements and sound output. Through iterative design, we figured out a way to fix the challenges in printing conductive sensor and mechanical connections, while identifying the practical limitations of conductive printing materials for interactive device development.</p>
-                <!-- <a class="card-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">Source</a> -->
-              </div>
-            </div>
-          </li>
+        </ul>
+      </section>
+
+      <section id="experience" class="section" tabindex="-1">
+        <h2>Experience</h2>
+        <ul>
+          <li><strong>Summer Intern Researcher</strong> — Human Computer Integration Lab, University of Chicago (Jul 2026 – Aug 2026)</li>
+          <li><strong>Undergraduate Researcher</strong> — DexLab, CSIE, National Taiwan University (Feb 2026 – present)</li>
+          <li><strong>Web Chair</strong> — ROCLING 2025, Taiwan Conference on Computational Linguistics (Fall 2025): ran the conference website, submission system setup and volunteer coordination</li>
+          <li><strong>Club President</strong> — NTU Survival Game Club (Mar 2024 – Aug 2025): led 30+ members and planned the yearly activities and events</li>
+        </ul>
+      </section>
+
+      <section id="skills" class="section" tabindex="-1">
+        <h2>Skills &amp; Interests</h2>
+        <ul>
+          <li><strong>Fabrication &amp; prototyping:</strong> Fusion 360 (CAD), Cura, PrusaSlicer (FDM 3D printing), Processing</li>
+          <li><strong>Programming:</strong> Python, C, C++, JavaScript, CUDA, LaTeX</li>
+          <li><strong>Interests:</strong> fixing motorcycles, bouldering, mountain climbing, working out</li>
         </ul>
       </section>
 
@@ -126,6 +169,7 @@
         <ul class="contact-list">
           <li><a href="mailto:donaldhsu93@gmail.com">donaldhsu93@gmail.com</a></li>
           <li><a href="https://github.com/lfiysoudui" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/weitanghsu/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         </ul>
       </section>
     </main>

@@ -33,7 +33,14 @@ function setupThemeToggle() {
     }
   };
 
-  const applyTheme = (theme: 'light' | 'dark') => root.setAttribute('data-theme', theme);
+  const applyTheme = (theme: 'light' | 'dark') => {
+    root.setAttribute('data-theme', theme);
+    // Icon swap is handled in CSS; keep the tooltip/label describing the action
+    const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    toggle?.setAttribute('title', label);
+    toggle?.setAttribute('aria-label', label);
+  };
+  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
 
   // Follow the system theme until the user picks one explicitly
   systemDark.addEventListener('change', (e) => {
@@ -51,29 +58,73 @@ function setupThemeToggle() {
   });
 }
 
-// Collapse long project descriptions behind a "see more" toggle
+// Collapse long project descriptions behind a "see more" toggle.
+// A collapsed card is as tall as its square thumbnail: the description gets
+// whatever lines the title (and any link buttons) leave free.
 function setupProjectToggles() {
-  const TRUNCATE_AT = 200;
-  document.querySelectorAll<HTMLElement>('.project-info').forEach((info) => {
-    const header = info.querySelector<HTMLElement>('.project-header');
-    const toggleLink = info.querySelector<HTMLElement>('.toggle-text');
-    const content = info.querySelector<HTMLElement>('.project-content');
-    const paragraph = content?.querySelector('p');
-    if (!header || !toggleLink || !content || !paragraph) return;
-    if ((paragraph.textContent ?? '').length <= TRUNCATE_AT) return;
+  const STACKED_LINES = 3; // phones: image sits above the text, so use a fixed preview
 
-    // Without a source link there is more room, so show more lines
-    if (!content.querySelector('.card-link')) content.classList.add('no-source');
-    content.classList.add('truncated');
-    toggleLink.style.display = 'inline';
-    toggleLink.textContent = 'see more';
+  const cards = [...document.querySelectorAll<HTMLElement>('.card')].flatMap((card) => {
+    const thumb = card.querySelector<HTMLElement>('.project-image, .project-image-placeholder');
+    const info = card.querySelector<HTMLElement>('.project-info');
+    const header = info?.querySelector<HTMLElement>('.project-header');
+    const toggleLink = info?.querySelector<HTMLElement>('.toggle-text');
+    const content = info?.querySelector<HTMLElement>('.project-content');
+    const paragraph = content?.querySelector<HTMLElement>('p');
+    if (!info || !header || !toggleLink || !content || !paragraph) return [];
+    return [{ card, thumb, info, header, toggleLink, content, paragraph, expanded: false, overflows: false }];
+  });
 
-    // The whole header (title + link) toggles the description
-    header.addEventListener('click', (e) => {
-      e.preventDefault();
-      const collapsed = content.classList.toggle('truncated');
-      toggleLink.textContent = collapsed ? 'see more' : 'see less';
+  const layout = () => {
+    cards.forEach((c) => {
+      const lineHeight = parseFloat(getComputedStyle(c.paragraph).lineHeight);
+      let lines = STACKED_LINES;
+      if (c.thumb && getComputedStyle(c.card).flexDirection !== 'column') {
+        let used = c.header.offsetHeight + parseFloat(getComputedStyle(c.header).marginBottom);
+        c.info.querySelectorAll<HTMLElement>(':scope > :not(.project-header, .project-content)').forEach((el) => {
+          used += el.offsetHeight + parseFloat(getComputedStyle(el).marginTop);
+        });
+        lines = Math.max(1, Math.floor((c.thumb.offsetHeight - used) / lineHeight));
+      }
+      c.content.style.setProperty('--clamp', String(lines));
+
+      // scrollHeight is the full text height whether or not it is clamped
+      c.overflows = c.paragraph.scrollHeight > lines * lineHeight + 1;
+      if (!c.overflows) c.expanded = false;
+      c.content.classList.toggle('truncated', c.overflows && !c.expanded);
+      c.toggleLink.style.display = c.overflows ? 'inline' : 'none';
+      c.toggleLink.textContent = c.expanded ? 'see less' : 'see more';
     });
+  };
+
+  cards.forEach((c) => {
+    // The whole header (title + link) toggles the description
+    c.header.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!c.overflows) return;
+      c.expanded = !c.expanded;
+      c.content.classList.toggle('truncated', !c.expanded);
+      c.toggleLink.textContent = c.expanded ? 'see less' : 'see more';
+    });
+  });
+
+  layout();
+  // Title wrapping changes with width and once web fonts/images settle
+  let frame = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(layout);
+  });
+  window.addEventListener('load', layout);
+}
+
+// Drop research link buttons that have no URL yet (and the row if none are left)
+function hideEmptyPaperLinks() {
+  document.querySelectorAll<HTMLElement>('.paper-links').forEach((row) => {
+    row.querySelectorAll('a').forEach((link) => {
+      if (!(link.getAttribute('href') || '').trim()) link.remove();
+    });
+    if (!row.querySelector('a')) row.remove();
   });
 }
 
@@ -97,6 +148,7 @@ function setCurrentYear() {
 function init() {
   setupSmoothScroll();
   setupThemeToggle();
+  hideEmptyPaperLinks(); // before measuring cards
   setupProjectToggles();
   hideEmptySectionLinks();
   setCurrentYear();
